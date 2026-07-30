@@ -426,6 +426,59 @@ select[hidden] { display: none; }
 .donut-legend .nm { font-weight: 600; }
 .donut-legend .vv { margin-left: auto; color: var(--ink-2); font-variant-numeric: tabular-nums; }
 
+/* ===== 인쇄 메뉴 ===== */
+.print-wrap { position: relative; }
+
+.print-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 50;
+  width: 280px;
+  padding: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  text-align: left;
+}
+.print-menu[hidden] { display: none; }
+.print-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  font-family: inherit;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.print-menu button:hover { background: var(--blue-050); }
+.print-menu button b { display: block; font-size: 14px; color: var(--ink); }
+.print-menu button span { display: block; margin-top: 2px; font-size: 12.5px; color: var(--muted); }
+.print-menu .pm-check {
+  display: flex; align-items: center; gap: 8px;
+  margin: 4px 0 2px; padding: 9px 12px;
+  font-size: 13px; color: var(--ink-2);
+  border-radius: 10px; cursor: pointer;
+}
+.print-menu .pm-check:hover { background: var(--blue-050); }
+.print-menu .pm-check input { width: 15px; height: 15px; accent-color: var(--blue-500); cursor: pointer; }
+
+.print-menu .pm-hint {
+  margin: 6px 4px 2px;
+  padding-top: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+  border-top: 1px solid var(--grid);
+}
+.print-menu .pm-hint b { color: var(--ink-2); }
+
+/* 인쇄용 머리글 · 데이터 이름 (화면에서는 보이지 않습니다) */
+.print-head, .print-tab-title { display: none; }
+
 .viz-tip {
   position: fixed;
   z-index: 60;
@@ -580,6 +633,100 @@ tr.low .lv { background: #f8cfcc; color: var(--critical); }
   .content { padding: 16px 16px 48px; }
   .chart-row { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   인쇄 (종이 · PDF)
+   화면 장식은 빼고, 카드·표·그래프만 A4에 담기게 합니다.
+   ============================================================ */
+@media print {
+  @page { size: A4 portrait; margin: 12mm 10mm; }
+
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  html, body { background: #ffffff; font-size: 10pt; }
+
+  /* 화면 전용 요소 감추기 */
+  .sidebar, .topbar, .upload-card, .viz-tip, .print-menu,
+  .btn-ghost, .btn-x, .btn-remove, .btn-file, .segmented, #studentSelect { display: none !important; }
+
+  .app { display: block; }
+  .main { display: block; }
+  .content { padding: 0; max-width: none; }
+
+  /* 머리글 */
+  .print-head {
+    display: block;
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #16233a;
+  }
+  .print-head .ph-title { font-size: 17pt; font-weight: 700; letter-spacing: -0.02em; }
+  .print-head .ph-sub { margin-top: 3px; font-size: 9.5pt; color: #4a5568; }
+
+  /* 데이터 이름 (모든 화면 인쇄에서 각 쪽 제목) */
+  .print-tab-title {
+    display: block;
+    margin: 0 0 10px;
+    padding: 6px 0 5px;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #16233a;
+    border-bottom: 1px solid #c9d5e6;
+  }
+
+  /* 카드 : 쪽 중간에서 잘리지 않게 */
+  .card, .stat, .donut-wrap, .legend { break-inside: avoid; page-break-inside: avoid; }
+  /* 표가 든 카드는 통째로 미루지 않고 쪽을 넘기며 이어 인쇄합니다 */
+  .card.has-table { break-inside: auto; page-break-inside: auto; }
+  .card { box-shadow: none; border-color: #d3dceb; }
+  .card + .card, .block + .block { margin-top: 10px; }
+  .card-h { padding: 12px 14px 0; }
+  .card-b { padding: 10px 14px 14px; }
+  .card-h h2 { font-size: 12pt; }
+
+  /* 카드 4개는 한 줄에 */
+  .stats, .stats.n3 { grid-template-columns: repeat(4, 1fr) !important; gap: 8px; }
+  .stat { padding: 10px 12px; border-color: #d3dceb; box-shadow: none; }
+  .stat .vl { font-size: 19pt; }
+  .stat.hero { background: #ffffff !important; border: 1px solid #9ec5f4 !important; color: #16233a !important; }
+  .stat.hero .vl { color: #1c5cab !important; font-size: 21pt; }
+  .stat.hero .lb { color: #4a5568 !important; }
+  .stat.hero .sb { color: #8a94a6 !important; }
+
+  /* 그래프는 위아래로 나란히 */
+  .chart-row { display: block !important; }
+  .chart-row > .card + .card { margin-top: 10px; }
+  .chart { max-height: 78mm; }
+
+  /* 표 : 잘린 부분 없이 전부, 머리글은 쪽마다 반복 */
+  .table-box { max-height: none !important; overflow: visible !important; border-radius: 0; }
+  thead { display: table-header-group; }
+  thead th { position: static; background: #eef4fd !important; }
+  tr { break-inside: avoid; page-break-inside: avoid; }
+  tbody td { padding: 6px 8px; font-size: 8.5pt; }
+  thead .th-plain, thead button { padding: 6px 8px; font-size: 8.5pt; }
+  thead .arrow { display: none; }
+
+  /* 진단 카드 */
+  .diag .card-b { font-size: 10pt; line-height: 1.6; }
+
+  /* 데이터 항목 설명은 새 쪽에서 시작 */
+  .dict { break-before: page; page-break-before: always; }
+  .dict tbody td { font-size: 8.5pt; line-height: 1.5; }
+
+  /* 회차 고르는 상자는 글자만 보이게 */
+  select { border: none !important; box-shadow: none !important; background: transparent !important;
+           padding: 0 !important; -webkit-appearance: none; appearance: none; }
+
+  /* 화면에서만 쓸모 있는 안내 문구는 종이에서 제외 */
+  .screen-only { display: none !important; }
+
+  /* 데이터 항목 설명을 뺀 경우 */
+  body.print-nodict .dict { display: none !important; }
+
+  /* 모든 화면 인쇄 : 데이터마다 새 쪽 */
+  body.print-all .panel + .panel { break-before: page; page-break-before: always; }
+}
 </style>
 </head>
 <body>
@@ -611,6 +758,25 @@ tr.low .lv { background: #f8cfcc; color: var(--critical); }
       </div>
       <span class="spacer"></span>
       <div class="controls">
+        <div class="print-wrap">
+          <button type="button" class="btn-file" id="printBtn" aria-expanded="false" aria-haspopup="true">
+            <span aria-hidden="true">🖨</span> 인쇄
+          </button>
+          <div class="print-menu" id="printMenu" hidden role="menu">
+            <button type="button" role="menuitem" data-print="one">
+              <b>지금 화면만 인쇄</b>
+              <span id="printOneSub">보고 있는 화면 한 장</span>
+            </button>
+            <button type="button" role="menuitem" data-print="all">
+              <b id="printAllTitle">모든 화면 인쇄</b>
+              <span id="printAllSub">데이터별로 쪽을 나눠 이어서 인쇄</span>
+            </button>
+            <label class="pm-check">
+              <input type="checkbox" id="printDict"> 📖 데이터 항목 설명도 함께 인쇄
+            </label>
+            <p class="pm-hint">인쇄 창에서 <b>대상</b>을 ‘PDF로 저장’으로 고르면 파일로 남길 수 있습니다. 용지는 A4 세로를 권합니다.</p>
+          </div>
+        </div>
         <button type="button" class="btn-file" id="fileBtn" aria-expanded="false">
           <span aria-hidden="true">📂</span> 데이터 파일<span class="n" id="fileBtnN"></span>
         </button>
@@ -623,6 +789,12 @@ tr.low .lv { background: #f8cfcc; color: var(--critical); }
     </header>
 
     <div class="content">
+
+      <!-- 인쇄할 때만 나오는 머리글 -->
+      <div class="print-head" aria-hidden="true">
+        <div class="ph-title">우리반 수학 수업 데이터 분석</div>
+        <div class="ph-sub" id="printSub"></div>
+      </div>
 
       <!-- 업로드 (파일을 읽고 나면 접힙니다. 위쪽 ‘데이터 파일’ 버튼으로 다시 열 수 있습니다) -->
       <section class="card upload-card block" id="uploadCard">
@@ -705,10 +877,12 @@ var dropzone = $('dropzone'), fileInput = $('fileInput'), fileListEl = $('fileLi
     kindsEl = $('kinds'), noticeEl = $('notice'), menuEl = $('menuWrap'),
     uploadCard = $('uploadCard'), uploadFoot = $('uploadFoot'),
     uploadClose = $('uploadClose'), fileBtn = $('fileBtn'), fileBtnN = $('fileBtnN'),
+    printBtn = $('printBtn'), printMenu = $('printMenu'), printSub = $('printSub'),
     pageTitle = $('pageTitle'), pageSub = $('pageSub'),
     modeToggle = $('modeToggle'), studentSelect = $('studentSelect'),
     vizTip = $('vizTip');
-var panels = {};      // 탭 이름 → 화면(section)
+var panels = {};        // 탭 이름 → 화면 내용이 그려지는 칸
+var panelSections = {}; // 탭 이름 → 겉껍데기 section (숨기기/보이기에 사용)
 var TAB_TITLE = {};   // 탭 이름 → 제목 (아래 setupTabs 에서 채웁니다)
 
 /* ====================== 2. 파일 고르기 ====================== */
@@ -1184,6 +1358,8 @@ function cardBox(title, hint, bodyNodes, extraCls) {
   var b = node('div', 'card-b');
   (Array.isArray(bodyNodes) ? bodyNodes : [bodyNodes]).forEach(function (n) { if (n) { b.appendChild(n); } });
   c.appendChild(b);
+  /* 긴 표가 든 카드는 인쇄할 때 쪽을 넘어가며 이어져야 합니다 (표시는 CSS 가 담당) */
+  if (b.querySelector('.table-box')) { c.classList.add('has-table'); }
   return c;
 }
 function legendRow(items) {
@@ -1834,7 +2010,7 @@ function renderOverall() {
       richText(b2, '위험 신호로 잡힌 조건이 **없습니다**.');
     }
     body.appendChild(b2);
-    var b3 = node('p', null, '왼쪽 메뉴에서 성취도평가·형성평가 화면으로 넘어가면 이 학생의 자세한 그래프를 볼 수 있습니다.');
+    var b3 = node('p', 'screen-only', '왼쪽 메뉴에서 성취도평가·형성평가 화면으로 넘어가면 이 학생의 자세한 그래프를 볼 수 있습니다.');
     body.appendChild(b3);
     p.appendChild(cardBox('🩺 ' + me.name + ' 학생 종합 진단', '자동 요약', [body], 'diag'));
     return;
@@ -2050,6 +2226,89 @@ modeToggle.addEventListener('click', function (e) {
   renderAll();
 });
 
+/* ============================================================================
+   인쇄 : 지금 화면만 / 모든 화면
+   브라우저의 인쇄 창을 그대로 사용합니다. (‘PDF로 저장’도 그 창에서 고릅니다)
+   ============================================================================ */
+function openPrintMenu(open) {
+  printMenu.hidden = !open;
+  printBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+printBtn.addEventListener('click', function (e) {
+  e.stopPropagation();
+  openPrintMenu(printMenu.hidden);
+});
+
+document.addEventListener('click', function (e) {
+  if (!printMenu.hidden && !printMenu.contains(e.target) && e.target !== printBtn) { openPrintMenu(false); }
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') { openPrintMenu(false); }
+});
+
+printMenu.addEventListener('click', function (e) {
+  var b = e.target.closest('button[data-print]');
+  if (!b) { return; }
+  openPrintMenu(false);
+  doPrint(b.getAttribute('data-print'));
+});
+
+/* 인쇄 머리글 문구 만들기 */
+function setPrintHead(all) {
+  var names = studentNames();
+  var who = (state.mode === 'student')
+    ? (state.student ? state.student + ' 학생' : '개인별')
+    : '학급 전체 ' + names.length + '명';
+  var what = all
+    ? ((state.mode === 'student' && state.student) ? '개인 전체 리포트' : '전체 화면 리포트')
+    : TAB_TITLE[state.tab];
+  var d = new Date();
+  var date = d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.';
+  var files = state.files.length ? ' · 자료 ' + state.files.length + '개' : '';
+  printSub.textContent = what + ' · ' + who + files + ' · ' + date + ' 인쇄';
+}
+
+/* 모든 탭을 한 번에 그려 둡니다 (데이터가 있는 것만) */
+function renderEveryPanel() {
+  renderOverall();
+  if (state.data.achieve.length) { renderAchieve(); }
+  if (state.data.formative.length) { renderFormative(); }
+  EXTRA_SPECS.forEach(function (s) {
+    if ((state.data[s.key] || []).length) { renderSpec(panels[s.key], s); }
+  });
+}
+
+/* 그 학생에게 기록이 있는 데이터인지 */
+function hasRowsFor(kind) {
+  var rows = state.data[kind] || [];
+  if (!rows.length) { return false; }
+  if (state.mode !== 'student') { return true; }
+  return rows.some(function (r) { return r['학생명'] === state.student; });
+}
+
+function doPrint(mode) {
+  document.body.classList.toggle('print-nodict', !$('printDict').checked);
+  if (mode === 'all') {
+    renderEveryPanel();
+    TABS.forEach(function (t) {
+      panelSections[t.key].hidden = (t.key === 'overall') ? false : !hasRowsFor(t.key);
+    });
+    document.body.classList.add('print-all');
+  }
+  setPrintHead(mode === 'all');
+  window.print();
+}
+
+/* 인쇄 창을 닫으면 화면을 원래대로 */
+window.addEventListener('afterprint', function () {
+  document.body.classList.remove('print-nodict');
+  if (document.body.classList.contains('print-all')) {
+    document.body.classList.remove('print-all');
+    renderAll();
+  }
+});
+
 fileBtn.addEventListener('click', function () {
   state.showUpload = !state.showUpload;
   renderAll();
@@ -2122,6 +2381,18 @@ function renderAll() {
     }
   }
 
+  /* 인쇄 메뉴 문구 (개인별인지에 따라 달라집니다) */
+  var kindsWithData = DATA_KINDS.filter(function (k) { return hasRowsFor(k); }).length;
+  $('printOneSub').textContent = TAB_TITLE[state.tab] + ' 화면 그대로';
+  if (state.mode === 'student' && state.student) {
+    $('printAllTitle').textContent = state.student + ' 학생 전체 리포트';
+    $('printAllSub').textContent = '이 학생 기록이 있는 데이터 ' + kindsWithData + '종을 이어서';
+  } else {
+    $('printAllTitle').textContent = '모든 화면 인쇄';
+    $('printAllSub').textContent = '데이터 ' + kindsWithData + '종을 쪽을 나눠 이어서';
+  }
+  setPrintHead(false);
+
   /* 업로드 상자 : 데이터가 없으면 항상 보이고, 있으면 접습니다 */
   var fileCount = state.files.length;
   var hasData = DATA_KINDS.some(function (k) { return (state.data[k] || []).length; });
@@ -2133,7 +2404,7 @@ function renderAll() {
   fileBtn.title = fileCount ? '올린 파일 ' + fileCount + '개 · 눌러서 열기/닫기' : 'CSV 파일 올리기';
 
   /* 화면 3개 중 현재 것만 보이기 */
-  Object.keys(panels).forEach(function (k) { panels[k].hidden = (k !== state.tab); });
+  Object.keys(panelSections).forEach(function (k) { panelSections[k].hidden = (k !== state.tab); });
 
   if (state.tab === 'overall') { renderOverall(); }
   else if (state.tab === 'achieve') { renderAchieve(); }
@@ -3362,8 +3633,12 @@ function setupTabs() {
     var sec = node('section', 'panel');
     sec.id = 'panel-' + t.key;
     sec.hidden = (t.key !== state.tab);
+    sec.appendChild(node('h2', 'print-tab-title', t.icon + ' ' + t.name));  // 인쇄할 때만 보이는 제목
+    var inner = node('div');
+    sec.appendChild(inner);
     host.appendChild(sec);
-    panels[t.key] = sec;
+    panels[t.key] = inner;
+    panelSections[t.key] = sec;
   });
 
   /* 같은 group 끼리 묶어 사이드바에 배치 */
