@@ -133,6 +133,7 @@ button, select, input { font-family: inherit; }
   transition: background-color .15s ease, color .15s ease;
 }
 .menu button .ico { font-size: 16px; width: 20px; text-align: center; }
+.menu button .tag:empty { display: none; }
 .menu button .tag {
   margin-left: auto;
   font-size: 11px;
@@ -425,6 +426,121 @@ select[hidden] { display: none; }
 .donut-legend .sw { width: 12px; height: 12px; border-radius: 3px; flex: 0 0 auto; }
 .donut-legend .nm { font-weight: 600; }
 .donut-legend .vv { margin-left: auto; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* ===== 과세특 초안 : 설정 폼 ===== */
+.form-row { margin-bottom: 18px; }
+.form-row > label {
+  display: block; margin-bottom: 6px;
+  font-size: 14px; font-weight: 700; color: var(--ink);
+}
+.form-row .desc { margin: 0 0 8px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.input-text, .input-key {
+  width: 100%; max-width: 480px;
+  padding: 11px 13px;
+  font-family: inherit; font-size: 14px;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 11px;
+}
+.input-key { letter-spacing: 2px; }
+.input-text:focus-visible, .input-key:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 1px; }
+.input-text[hidden] { display: none; }
+
+.form-row select { max-width: 480px; width: 100%; }
+
+.key-state {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 8px; padding: 5px 11px;
+  font-size: 12.5px; font-weight: 600;
+  border-radius: 999px;
+}
+.key-state.on  { color: var(--good); background: var(--good-bg); }
+.key-state.off { color: var(--ink-2); background: var(--page); }
+
+.form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 4px; }
+
+.btn-primary {
+  padding: 11px 20px;
+  font-family: inherit; font-size: 14.5px; font-weight: 700;
+  color: #fff; background: var(--blue-600);
+  border: none; border-radius: 11px; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37,106,191,.25);
+}
+.btn-primary:hover { background: var(--blue-700); }
+.btn-primary:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 2px; }
+
+.save-msg { font-size: 13px; font-weight: 600; color: var(--good); }
+.save-msg[hidden] { display: none; }
+
+.info-box {
+  padding: 14px 16px;
+  font-size: 13.5px; line-height: 1.75;
+  color: var(--ink-2);
+  background: var(--blue-050);
+  border: 1px solid var(--blue-100);
+  border-radius: 12px;
+}
+.info-box + .info-box { margin-top: 12px; }
+.info-box a { color: var(--blue-700); font-weight: 700; }
+.info-box strong { color: var(--ink); }
+.info-box.warn {
+  color: #7a5300; background: #fff8e6; border-color: #f2ddab;
+}
+.info-box.warn strong { color: #6b4700; }
+.info-box.next { color: var(--muted); background: #fafbfd; border-color: var(--line); }
+
+/* ===== 과세특 : 보낼 데이터 고르기 ===== */
+.pick-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.pick-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 13px 15px;
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: 13px;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease, opacity .15s ease;
+}
+.pick-item:hover { border-color: var(--blue-500); background: var(--blue-050); }
+.pick-item.off { opacity: .5; background: #fafbfd; }
+.pick-item input[type="checkbox"] {
+  width: 17px; height: 17px; margin-top: 2px; flex: 0 0 auto;
+  accent-color: var(--blue-500); cursor: pointer;
+}
+.pick-body { min-width: 0; }
+.pick-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+.pick-text { margin-top: 4px; font-size: 13px; line-height: 1.7; color: var(--ink-2); word-break: break-word; }
+
+.name-check {
+  margin: 12px 0 0; padding: 9px 13px;
+  font-size: 12.5px; font-weight: 600; border-radius: 10px;
+}
+.name-check.ok  { color: var(--good); background: var(--good-bg); }
+.name-check.bad { color: var(--critical); background: var(--critical-bg); }
+
+/* ===== 과세특 : 글 상자 ===== */
+.ta {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: inherit; font-size: 14px; line-height: 1.85;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 13px;
+  resize: vertical;
+}
+.ta:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 1px; }
+.ta.memo { font-size: 13.5px; line-height: 1.8; }
+.ta.draft { background: #fcfdff; }
+
+.ta-foot {
+  display: flex; align-items: center; gap: 10px;
+  margin: 8px 2px 14px;
+  font-size: 12.5px; color: var(--muted);
+}
+.ta-count { font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.ta-state { margin-left: auto; }
+.ta-state.dirty { color: var(--serious); font-weight: 600; }
+
+.info-box.err { color: var(--critical); background: var(--critical-bg); border-color: #f3c9c9; font-weight: 600; }
+
+.draft-print { display: none; }
 
 /* ===== 인쇄 메뉴 ===== */
 .print-wrap { position: relative; }
@@ -721,6 +837,18 @@ tr.low .lv { background: #f8cfcc; color: var(--critical); }
   /* 화면에서만 쓸모 있는 안내 문구는 종이에서 제외 */
   .screen-only { display: none !important; }
 
+  /* 과세특 : 설정·선택 카드는 인쇄하지 않고, 초안은 입력상자 대신 글자로 */
+  .no-print { display: none !important; }
+  .ta { display: none !important; }
+  .ta-foot { display: none !important; }
+  .draft-print {
+    display: block !important;
+    padding: 14px 16px;
+    font-size: 11pt; line-height: 1.9;
+    border: 1px solid #d3dceb; border-radius: 8px;
+    white-space: pre-wrap;
+  }
+
   /* 데이터 항목 설명을 뺀 경우 */
   body.print-nodict .dict { display: none !important; }
 
@@ -844,7 +972,11 @@ var state = {
   round: '',            // 성취도평가 회차 ('' = 최신)
   sortA: { key: null, asc: true },
   messages: [],
-  showUpload: true      // 파일 올리는 상자를 펼쳐 둘지 (데이터가 들어오면 자동으로 접힙니다)
+  showUpload: true,     // 파일 올리는 상자를 펼쳐 둘지 (데이터가 들어오면 자동으로 접힙니다)
+  sesta: {              // 과세특 초안 화면의 상태
+    student: '', checks: {}, memo: '', memoDirty: false,
+    length: 300, draft: '', draftInfo: '', error: '', models: null
+  }
 };
 
 var AREAS = ['수와연산', '문자와식', '함수', '기하', '확률과통계'];
@@ -2409,6 +2541,7 @@ function renderAll() {
   if (state.tab === 'overall') { renderOverall(); }
   else if (state.tab === 'achieve') { renderAchieve(); }
   else if (state.tab === 'formative') { renderFormative(); }
+  else if (state.tab === 'sesta') { renderSesta(); }
   else { renderSpec(panels[state.tab], SPEC_BY_KEY[state.tab]); }
 }
 
@@ -3606,16 +3739,833 @@ var SPEC_LMS = {
 var EXTRA_SPECS = [SPEC_PORTFOLIO, SPEC_COLLAB, SPEC_OBSERVE, SPEC_SURVEY, SPEC_LMS, SPEC_AI];
 
 /* ============================================================================
+   15-2. 과세특(교과세부능력 및 특기사항) 초안
+
+   이 화면만 예외적으로 인터넷을 씁니다. 보낼 때 학생 이름·학번·학교·학년·반은
+   빼고, 점수와 평가 기록만 보냅니다. API 키는 코드가 아니라 브라우저에만 둡니다.
+   ============================================================================ */
+
+var SESTA_STORE = {
+  key: 'sesta.apiKey', model: 'sesta.model', custom: 'sesta.customModel', list: 'sesta.modelList'
+};
+var SESTA_CUSTOM = '__CUSTOM__';
+
+/* 미리 넣어 둔 후보. 실제 쓸 수 있는 이름은 ‘사용 가능한 모델 불러오기’로 확인합니다. */
+var SESTA_MODELS = [
+  { id: 'gemini-3.6-flash',      label: 'Gemini 3.6 Flash',      note: '기본 추천 · 빠름' },
+  { id: 'gemini-3.5-flash',      label: 'Gemini 3.5 Flash',      note: '이전 세대' },
+  { id: 'gemini-3.5-flash-lite', label: 'Gemini 3.5 Flash-Lite', note: '가장 가벼움' }
+];
+
+function lsGet(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } }
+function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
+
+/* ---------------------------------------------------------------------------
+   이름 지우개 : 요약 문장이나 교사 코멘트에 학생 이름·학번이 있으면 ‘학생’으로 바꿉니다.
+   --------------------------------------------------------------------------- */
+function scrubNames(text) {
+  var s = String(text === undefined || text === null ? '' : text);
+  var names = studentNames().slice().sort(function (a, b) { return b.length - a.length; });
+  names.forEach(function (n) {
+    if (n && n.length >= 2) { s = s.split(n).join('학생'); }
+  });
+  var ids = [];
+  DATA_KINDS.forEach(function (k) {
+    (state.data[k] || []).forEach(function (r) {
+      if (r['학생ID'] && ids.indexOf(r['학생ID']) === -1) { ids.push(r['학생ID']); }
+    });
+  });
+  ids.sort(function (a, b) { return b.length - a.length; }).forEach(function (id) {
+    if (id && id.length >= 3) { s = s.split(id).join('학생'); }
+  });
+  /* ‘송연희 학생’ → ‘학생 학생’ 처럼 겹쳐 보이는 부분 정리 */
+  s = s.replace(/학생\s*학생/g, '학생');
+  return s;
+}
+/* 이름이 정말 없는지 확인 (화면에 표시해 안심하고 쓰실 수 있게) */
+function hasAnyName(text) {
+  var s = String(text || '');
+  return studentNames().some(function (n) { return n && n.length >= 2 && s.indexOf(n) !== -1; });
+}
+
+/* ---------------------------------------------------------------------------
+   데이터 종류별 요약문 (이름 없이, 한두 문장)
+   --------------------------------------------------------------------------- */
+function sestaSummary(kind, mine) {
+  var parts = [];
+  var join = function (a) { return a.filter(Boolean).join(' '); };
+
+  if (kind === 'achieve') {
+    var last = mine.slice().sort(function (a, b) { return (toNum(a['회차']) || 0) - (toNum(b['회차']) || 0); });
+    var r = last[last.length - 1];
+    var areas = AREAS.map(function (a, i) { return a + ' ' + fmt(toNum(r[AREA_COLS[i]]), 0) + '점'; }).join(', ');
+    parts.push((r['회차'] ? r['회차'] + '회차 기준 ' : '') + areas + '.');
+    parts.push('총점 ' + fmt(toNum(r['총점']), 0) + '점(500점 만점), 평균 ' + fmt(toNum(r['평균']), 1) +
+               '점, 성취수준 ' + (level(r) || '-') + '.');
+    var extra = [];
+    if (toNum(r['수업참여도']) !== null) { extra.push('수업참여도 ' + fmt(toNum(r['수업참여도']), 1) + '/5'); }
+    if (toNum(r['과제제출률']) !== null) { extra.push('과제제출률 ' + fmt(toNum(r['과제제출률']), 0) + '%'); }
+    if (toNum(r['주당학습시간(분)']) !== null) { extra.push('주당 학습시간 ' + fmt(toNum(r['주당학습시간(분)']), 0) + '분'); }
+    if (toNum(r['자기주도학습지수']) !== null) { extra.push('자기주도학습지수 ' + fmt(toNum(r['자기주도학습지수']), 0) + '/100'); }
+    if (extra.length) { parts.push(extra.join(', ') + '.'); }
+    if (last.length > 1) {
+      var a0 = toNum(last[0]['평균']), a1 = toNum(r['평균']);
+      if (a0 !== null && a1 !== null) {
+        parts.push('회차 변화: ' + fmt(a0, 1) + '점 → ' + fmt(a1, 1) + '점(' + (a1 - a0 >= 0 ? '+' : '') + fmt(a1 - a0, 1) + ').');
+      }
+    }
+    if (r['오답유형태그']) { parts.push('오답유형: ' + r['오답유형태그'].split(/[;,]/).join(', ') + '.'); }
+    return join(parts);
+  }
+
+  if (kind === 'formative') {
+    var cr = correctRate(mine);
+    parts.push('문항 ' + cr.total + '개 중 ' + cr.ok + '개 정답(정답률 ' + fmt(cr.rate, 1) + '%).');
+    var byArea = rateByKey(mine, '성취영역');
+    var areaTxt = Object.keys(byArea).map(function (k) {
+      return k + ' ' + fmt(byArea[k].ok / byArea[k].total * 100, 0) + '%';
+    });
+    if (areaTxt.length) { parts.push('영역별 정답률: ' + areaTxt.join(', ') + '.'); }
+    var errs = errorCounts(mine);
+    var errTxt = Object.keys(errs).sort(function (a, b) { return errs[b] - errs[a]; })
+                       .map(function (k) { return k + ' ' + errs[k] + '건'; });
+    if (errTxt.length) { parts.push('오답 원인: ' + errTxt.join(', ') + '.'); }
+    var t = mean(mine.map(function (x) { return toNum(x['풀이시간(초)']); }));
+    var retry = mine.filter(function (x) { return (toNum(x['재시도횟수']) || 0) >= 2; }).length;
+    var ai = mine.filter(function (x) { return usedAI(x['AI도움사용']); }).length;
+    parts.push('평균 풀이시간 ' + fmt(t, 0) + '초, 재시도 2회 이상 ' + retry + '문항, AI 도움 사용 ' + ai + '문항.');
+    return join(parts);
+  }
+
+  if (kind === 'portfolio') {
+    var pr = mine[0];
+    parts.push('산출물 ‘' + (pr['프로젝트명'] || '') + '’(' + (pr['산출물유형'] || '') + ') 총점 ' +
+               fmt(toNum(pr['총점(100)']), 1) + '/100점.');
+    parts.push('루브릭: ' + PF_COLS.map(function (c, i) {
+      return PF_LABELS[i] + ' ' + fmt(toNum(pr[c]), 1);
+    }).join(', ') + ' (각 20점 만점).');
+    parts.push('교사총평점 ' + fmt(toNum(pr['교사총평점(1-5)']), 1) + '/5, 동료평가 ' +
+               fmt(toNum(pr['동료평가평균']), 1) + '/5, 재제출 ' + (pr['재제출여부'] || '-') + '.');
+    if (pr['피드백요약']) { parts.push('교사 피드백: ' + pr['피드백요약'] + '.'); }
+    return join(parts);
+  }
+
+  if (kind === 'collab') {
+    parts.push('모둠 활동 ' + mine.length + '회 참여(맡은 역할: ' + keysSorted(mine, '역할').join(', ') + ').');
+    parts.push('평균 기여도 ' + fmt(meanCol(mine, '기여도(1-5)'), 1) + '/5, 동료평가 ' +
+               fmt(meanCol(mine, '동료평가(1-5)'), 1) + '/5, 산출물완성도 ' +
+               fmt(meanCol(mine, '산출물완성도(1-5)'), 1) + '/5, 역할수행도 ' +
+               fmt(meanCol(mine, '모둠역할수행도(1-5)'), 1) + '/5.');
+    parts.push('활동당 평균 발화 ' + fmt(meanCol(mine, '발화수'), 0) + '회.');
+    return join(parts);
+  }
+
+  if (kind === 'observe') {
+    parts.push('주간 관찰 ' + mine.length + '회 — 평균 수업태도 ' + fmt(meanCol(mine, '수업태도(1-5)'), 1) +
+               ', 참여수준 ' + fmt(meanCol(mine, '참여수준(1-5)'), 1) +
+               ', 이해정도 ' + fmt(meanCol(mine, '이해정도(1-5)'), 1) + ' (각 5점 척도).');
+    var pos = items(countBySplit(mine, '긍정관찰'));
+    if (pos.length) {
+      parts.push('칭찬 기록: ' + pos.slice(0, 3).map(function (x) { return x.label + ' ' + x.value + '회'; }).join(', ') + '.');
+    }
+    var need = items(countBySplit(mine, '관찰필요'));
+    parts.push(need.length
+      ? '지도 필요로 적힌 점: ' + need.slice(0, 3).map(function (x) { return x.label + ' ' + x.value + '회'; }).join(', ') + '.'
+      : '지도 필요로 적힌 기록 없음.');
+    var cm = mine.map(function (r) { return String(r['교사코멘트'] || '').trim(); }).filter(Boolean);
+    if (cm.length) { parts.push('교사 코멘트 예: ' + cm.slice(-2).join(' / ') + '.'); }
+    return join(parts);
+  }
+
+  if (kind === 'survey') {
+    var pre = surveyAt(mine, '사전')[0], post = surveyAt(mine, '사후')[0] || surveyLast(mine);
+    if (post) {
+      parts.push('정의적 영역 설문(5점 척도) 사후 문항평균 ' + fmt(toNum(post['문항평균']), 1) + '점' +
+                 (pre ? '(사전 ' + fmt(toNum(pre['문항평균']), 1) + '점).' : '.'));
+      parts.push(SURVEY_COLS.map(function (c) {
+        return c + ' ' + (pre ? fmt(toNum(pre[c]), 1) + '→' : '') + fmt(toNum(post[c]), 1);
+      }).join(', ') + '.');
+      parts.push('학업스트레스는 낮을수록 좋은 값임.');
+    }
+    return join(parts);
+  }
+
+  if (kind === 'lms') {
+    var days = keysSorted(mine, '날짜').length || mine.length;
+    parts.push('온라인 학습 ' + days + '일 접속, 하루 평균 ' + fmt(sumCol(mine, '총접속분') / days, 0) + '분.');
+    parts.push('영상완주율 평균 ' + fmt(meanCol(mine, '영상완주율(%)'), 0) + '%, 퀴즈 응시 ' +
+               fmt(sumCol(mine, '퀴즈응시수'), 0) + '회, 질문 ' + fmt(sumCol(mine, '질문수'), 0) + '회, 게시글 ' +
+               fmt(sumCol(mine, '게시판글수'), 0) + '회.');
+    var dev = items(countBy(mine, '접속기기'))[0];
+    if (dev) { parts.push('주 사용 기기 ' + dev.label + '.'); }
+    return join(parts);
+  }
+
+  if (kind === 'ai') {
+    parts.push('AI 도구 사용 기록 ' + mine.length + '건, 평균 결과반영도 ' +
+               fmt(meanCol(mine, '결과반영도(1-5)'), 1) + '/5.');
+    var pur = items(countBy(mine, '활용목적'));
+    if (pur.length) {
+      parts.push('주요 활용목적: ' + pur.slice(0, 3).map(function (x) { return x.label + ' ' + x.value + '건'; }).join(', ') + '.');
+    }
+    parts.push('평균 대화 ' + fmt(meanCol(mine, '대화턴수'), 1) + '턴, 교사 미검토 ' +
+               mine.filter(function (r) { return String(r['교사검토여부']).trim() === '미검토'; }).length + '건.');
+    return join(parts);
+  }
+  return '';
+}
+
+/* 선택된 학생에게 있는 데이터만 카드 목록으로 */
+function sestaItems(name) {
+  var out = [];
+  DATA_KINDS.forEach(function (k) {
+    var mine = byStudent(state.data[k] || [], name);
+    if (!mine.length) { return; }
+    var text = scrubNames(sestaSummary(k, mine));
+    if (!text) { return; }
+    out.push({ key: k, title: KIND_NAME[k], text: text, rows: mine.length });
+  });
+  return out;
+}
+
+/* ---------------------------------------------------------------------------
+   메모 만들기
+   --------------------------------------------------------------------------- */
+function sestaBuildMemo(list) {
+  return list.filter(function (it) { return state.sesta.checks[it.key]; })
+             .map(function (it) { return '· ' + it.title + ': ' + it.text; })
+             .join('\n');
+}
+
+/* ---------------------------------------------------------------------------
+   AI에게 보낼 지시문 (과세특 작성 요령을 모두 포함)
+   --------------------------------------------------------------------------- */
+function sestaPrompt(memo, length) {
+  return [
+    '너는 중학교 수학 교사의 학교생활기록부 작성을 돕는 조수다.',
+    '아래 [학생 기록 메모]를 바탕으로 「교과세부능력 및 특기사항」 초안을 한 편 작성하라.',
+    '',
+    '[작성 요령 — 모두 반드시 지킬 것]',
+    '1. 모든 문장은 “~함”, “~임”, “~을 보임”처럼 명사형으로 끝낼 것. “~습니다”, “~했다”, “~이다” 같은 말투는 절대 쓰지 말 것.',
+    '2. 점수·정답률·등수·백분율 같은 숫자를 문장에 그대로 옮기지 말 것. 대신 “우수한 성취를 보임”, “꾸준한 향상을 보임”처럼 의미를 풀어서 표현할 것.',
+    '3. 학생 이름, 학원·기관 이름, 자격증·인증시험 이름, 책 제목 등 고유명사는 절대 쓰지 말 것.',
+    '4. 항목을 나열하지 말 것. 자연스럽게 이어지는 하나의 문단으로 다시 쓸 것. 줄바꿈·불릿·번호를 쓰지 말 것.',
+    '5. 메모에 없는 내용을 지어내지 말 것. 부족한 점은 단점으로 적지 말고 “성장 가능성”으로 부드럽게 표현할 것.',
+    '6. 전체 길이는 ' + length + '자 내외(공백 포함)로 쓸 것.',
+    '',
+    '[학생 기록 메모]',
+    memo,
+    '',
+    '위 요령을 지켜 초안 본문만 출력하라. 제목, 머리말, 설명, 따옴표를 붙이지 말 것.'
+  ].join('\n');
+}
+
+/* ---------------------------------------------------------------------------
+   구글 호출 (모델 목록 / 초안 생성)
+   --------------------------------------------------------------------------- */
+var GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta';
+
+function geminiListModels(apiKey) {
+  return fetch(GEMINI_BASE + '/models?pageSize=200', {
+    method: 'GET',
+    headers: { 'x-goog-api-key': apiKey }
+  }).then(function (res) {
+    return res.text().then(function (body) {
+      var data = null;
+      try { data = JSON.parse(body); } catch (e) {}
+      if (!res.ok) {
+        var err = new Error((data && data.error && data.error.message) || ('HTTP ' + res.status));
+        err.status = res.status;
+        err.detail = data && data.error;
+        throw err;
+      }
+      var models = (data && data.models) || [];
+      return models.filter(function (m) {
+        var ms = m.supportedGenerationMethods || m.supportedActions || [];
+        return ms.indexOf('generateContent') !== -1;
+      }).map(function (m) {
+        return {
+          id: String(m.name || '').replace(/^models\//, ''),
+          label: m.displayName || String(m.name || '').replace(/^models\//, ''),
+          note: ''
+        };
+      }).filter(function (m) { return m.id; });
+    });
+  });
+}
+
+function geminiGenerate(apiKey, model, prompt) {
+  var url = GEMINI_BASE + '/models/' + encodeURIComponent(model) + ':generateContent';
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+    body: JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      /* 최신 모델은 답을 쓰기 전에 내부적으로 ‘생각’하는 데도 이 한도를 함께 씁니다.
+         너무 작게 두면 생각만 하다 끝나 결과가 비어서 돌아옵니다. */
+      generationConfig: { temperature: 0.7, maxOutputTokens: 4096 }
+    })
+  }).then(function (res) {
+    return res.text().then(function (body) {
+      var data = null;
+      try { data = JSON.parse(body); } catch (e) {}
+      if (!res.ok) {
+        var err = new Error((data && data.error && data.error.message) || ('HTTP ' + res.status));
+        err.status = res.status;
+        err.detail = data && data.error;
+        throw err;
+      }
+      return data;
+    });
+  });
+}
+
+/* 응답에서 글과 상태를 뽑아냅니다 */
+function readGeminiResult(data) {
+  var out = { text: '', finish: '', blocked: '', note: '' };
+  if (!data) { out.note = '응답이 비어 있습니다.'; return out; }
+
+  if (data.promptFeedback && data.promptFeedback.blockReason) {
+    out.blocked = String(data.promptFeedback.blockReason);
+    return out;
+  }
+  var c = (data.candidates || [])[0];
+  if (!c) { out.note = '모델이 후보 응답을 만들지 못했습니다.'; return out; }
+  out.finish = String(c.finishReason || '');
+
+  var parts = (c.content && c.content.parts) || [];
+  out.text = parts.map(function (p) { return p.text || ''; }).join('').trim();
+
+  var um = data.usageMetadata || {};
+  out.thoughts = um.thoughtsTokenCount || 0;
+  out.outTokens = um.candidatesTokenCount || 0;
+  return out;
+}
+
+/* 실패 이유를 사람 말로 */
+function sestaErrorText(err) {
+  if (!err) { return '알 수 없는 문제가 생겼습니다.'; }
+  var msg = String(err.message || '');
+  var st = err.status;
+
+  if (err.name === 'TypeError' || /Failed to fetch|NetworkError|Load failed/i.test(msg)) {
+    return '구글에 연결하지 못했습니다. 인터넷 연결, 학교 방화벽, 또는 브라우저 확장 프로그램(광고 차단 등)을 확인해 주세요.';
+  }
+  if (st === 400 && /API key not valid|API_KEY_INVALID/i.test(msg)) {
+    return 'API 키가 올바르지 않습니다. aistudio.google.com/apikey 에서 키를 다시 확인해 새로 저장해 주세요.';
+  }
+  if (st === 400) { return '요청 형식에 문제가 있습니다. 모델 이름이 맞는지 확인해 주세요. (구글 안내: ' + msg + ')'; }
+  if (st === 401 || st === 403) {
+    return '키에 권한이 없거나 사용이 거부되었습니다. 키가 이 모델을 쓸 수 있는지, 지역 제한이 없는지 확인해 주세요. (구글 안내: ' + msg + ')';
+  }
+  if (st === 404) {
+    return '그 이름의 모델을 찾지 못했습니다. 위쪽 ‘이 키로 실제 사용 가능한 모델 불러오기’를 눌러 목록을 갱신해 보세요. (구글 안내: ' + msg + ')';
+  }
+  if (st === 429) {
+    return '사용 한도를 넘었습니다(분당 요청 수 또는 무료 사용량 초과). 1~2분 뒤에 다시 시도하거나 더 가벼운 모델을 골라 주세요.';
+  }
+  if (st === 500 || st === 503) {
+    return '구글 서버가 일시적으로 응답하지 못했습니다. 잠시 뒤 다시 시도해 주세요.';
+  }
+  if (st) { return '구글이 오류를 돌려주었습니다 (HTTP ' + st + '). ' + msg; }
+  return msg || '알 수 없는 문제가 생겼습니다.';
+}
+
+/* ---------------------------------------------------------------------------
+   화면 그리기
+   --------------------------------------------------------------------------- */
+function renderSesta() {
+  var p = panels.sesta;
+  p.innerHTML = '';
+
+  var savedKey = lsGet(SESTA_STORE.key);
+  var savedModel = lsGet(SESTA_STORE.model);
+  var savedCustom = lsGet(SESTA_STORE.custom);
+  var modelList = state.sesta.models;
+  if (!modelList) {
+    try { modelList = JSON.parse(lsGet(SESTA_STORE.list) || 'null'); } catch (e) { modelList = null; }
+    if (modelList && modelList.length) { state.sesta.models = modelList; }
+  }
+  var baseList = (modelList && modelList.length) ? modelList : SESTA_MODELS;
+  if (!savedModel) { savedModel = baseList[0].id; }
+  var isCustom = baseList.every(function (m) { return m.id !== savedModel; });
+
+  /* ===================== 카드 1 : AI 설정 ===================== */
+  var head = node('div', 'info-box warn');
+  richText(head, '이 기능은 **이 대시보드에서 유일하게 인터넷이 필요한 부분**입니다. 초안을 만들 때 학생 데이터를 구글 Gemini로 보내기 때문입니다. ' +
+    '보낼 때 **이름·학번·학교·학년·반은 전송하지 않고**, 점수와 평가 기록만 보냅니다. 다른 화면은 지금처럼 인터넷 없이 작동합니다.');
+
+  var keyRow = node('div', 'form-row');
+  var keyLabel = node('label', null, 'Gemini API 키');
+  keyLabel.setAttribute('for', 'sestaKey');
+  keyRow.appendChild(keyLabel);
+  keyRow.appendChild(node('p', 'desc', '입력한 값은 화면에 그대로 보이지 않습니다. 이 컴퓨터의 브라우저에만 저장됩니다.'));
+
+  var keyInput = document.createElement('input');
+  keyInput.type = 'password';
+  keyInput.id = 'sestaKey';
+  keyInput.className = 'input-key';
+  keyInput.placeholder = savedKey ? '저장된 키가 있습니다 (바꾸려면 새로 입력)' : 'AIza… 로 시작하는 키를 붙여넣으세요';
+  keyInput.autocomplete = 'off';
+  keyInput.spellcheck = false;
+  keyRow.appendChild(keyInput);
+  keyRow.appendChild(node('div', 'key-state ' + (savedKey ? 'on' : 'off'),
+    savedKey ? '✔ 이 브라우저에 저장되어 있습니다 (키 길이 ' + savedKey.length + '자)'
+             : '○ 아직 저장된 키가 없습니다'));
+
+  var modelRow = node('div', 'form-row');
+  var modelLabel = node('label', null, 'AI 모델');
+  modelLabel.setAttribute('for', 'sestaModel');
+  modelRow.appendChild(modelLabel);
+  modelRow.appendChild(node('p', 'desc',
+    (modelList && modelList.length)
+      ? '이 키로 실제 사용 가능한 모델 ' + modelList.length + '개를 불러왔습니다.'
+      : '모델 이름은 시간이 지나면 바뀝니다. 아래 버튼으로 이 키로 쓸 수 있는 목록을 직접 확인하는 편이 안전합니다.'));
+
+  var sel = document.createElement('select');
+  sel.id = 'sestaModel';
+  baseList.forEach(function (m) {
+    var o = node('option', null, m.label + (m.note ? ' — ' + m.note : '') + (m.label !== m.id ? ' (' + m.id + ')' : ''));
+    o.value = m.id;
+    sel.appendChild(o);
+  });
+  var oc = node('option', null, '직접 입력…');
+  oc.value = SESTA_CUSTOM;
+  sel.appendChild(oc);
+  sel.value = isCustom ? SESTA_CUSTOM : savedModel;
+  modelRow.appendChild(sel);
+
+  var custom = document.createElement('input');
+  custom.type = 'text';
+  custom.className = 'input-text';
+  custom.style.marginTop = '10px';
+  custom.placeholder = '모델 이름을 그대로 입력 (예: gemini-3.5-flash)';
+  custom.value = isCustom ? (savedModel || savedCustom) : savedCustom;
+  custom.hidden = !isCustom;
+  modelRow.appendChild(custom);
+  sel.addEventListener('change', function () {
+    custom.hidden = (sel.value !== SESTA_CUSTOM);
+    if (!custom.hidden) { custom.focus(); }
+  });
+
+  var actions = node('div', 'form-actions');
+  var saveBtn = node('button', 'btn-primary', '저장');
+  saveBtn.type = 'button';
+  var loadBtn = node('button', 'btn-ghost', '↻ 이 키로 실제 사용 가능한 모델 불러오기');
+  loadBtn.type = 'button';
+  var clearBtn = node('button', 'btn-ghost', '저장된 키 지우기');
+  clearBtn.type = 'button';
+  var msg = node('span', 'save-msg', '');
+  msg.hidden = true;
+  actions.appendChild(saveBtn);
+  actions.appendChild(loadBtn);
+  actions.appendChild(clearBtn);
+  actions.appendChild(msg);
+
+  function say(text, color) {
+    msg.textContent = text;
+    msg.style.color = color || 'var(--good)';
+    msg.hidden = false;
+  }
+  function currentKey() {
+    var typed = keyInput.value.trim();
+    return typed || lsGet(SESTA_STORE.key);
+  }
+  function currentModel() {
+    return (sel.value === SESTA_CUSTOM) ? custom.value.trim() : sel.value;
+  }
+
+  saveBtn.addEventListener('click', function () {
+    var model = currentModel();
+    if (!model) { say('모델 이름을 입력해 주세요.', 'var(--critical)'); custom.focus(); return; }
+    if (sel.value === SESTA_CUSTOM) { lsSet(SESTA_STORE.custom, model); }
+    var typed = keyInput.value.trim();
+    if (!typed && !lsGet(SESTA_STORE.key)) { say('API 키를 입력해 주세요.', 'var(--critical)'); keyInput.focus(); return; }
+    if (typed) { lsSet(SESTA_STORE.key, typed); }
+    lsSet(SESTA_STORE.model, model);
+    keyInput.value = '';
+    renderSesta();
+    var m2 = panels.sesta.querySelector('.save-msg');
+    if (m2) { m2.textContent = '✔ 저장했습니다 (모델: ' + model + ')'; m2.style.color = 'var(--good)'; m2.hidden = false; }
+  });
+
+  clearBtn.addEventListener('click', function () {
+    lsDel(SESTA_STORE.key);
+    renderSesta();
+    var m2 = panels.sesta.querySelector('.save-msg');
+    if (m2) { m2.textContent = '이 브라우저에서 키를 지웠습니다.'; m2.style.color = 'var(--ink-2)'; m2.hidden = false; }
+  });
+
+  loadBtn.addEventListener('click', function () {
+    var k = currentKey();
+    if (!k) { say('먼저 API 키를 입력해 주세요.', 'var(--critical)'); keyInput.focus(); return; }
+    loadBtn.disabled = true;
+    var old = loadBtn.textContent;
+    loadBtn.textContent = '⏳ 불러오는 중…';
+    say('구글에 물어보고 있습니다…', 'var(--ink-2)');
+    geminiListModels(k).then(function (list) {
+      if (!list.length) {
+        say('이 키로 글 생성이 가능한 모델을 찾지 못했습니다.', 'var(--critical)');
+        return;
+      }
+      state.sesta.models = list;
+      lsSet(SESTA_STORE.list, JSON.stringify(list));
+      if (keyInput.value.trim()) { lsSet(SESTA_STORE.key, keyInput.value.trim()); }
+      var keep = lsGet(SESTA_STORE.model);
+      if (!list.some(function (m) { return m.id === keep; })) {
+        var pref = list.filter(function (m) { return /flash/i.test(m.id) && !/lite/i.test(m.id); })[0] || list[0];
+        lsSet(SESTA_STORE.model, pref.id);
+      }
+      renderSesta();
+      var m2 = panels.sesta.querySelector('.save-msg');
+      if (m2) {
+        m2.textContent = '✔ 사용 가능한 모델 ' + list.length + '개를 불러왔습니다. 목록에서 골라 주세요.';
+        m2.style.color = 'var(--good)';
+        m2.hidden = false;
+      }
+    }).catch(function (err) {
+      say('불러오지 못했습니다 — ' + sestaErrorText(err), 'var(--critical)');
+    }).then(function () {
+      loadBtn.disabled = false;
+      loadBtn.textContent = old;
+    });
+  });
+
+  var guide = node('div', 'info-box');
+  guide.appendChild(document.createTextNode('API 키는 '));
+  var a = document.createElement('a');
+  a.href = 'https://aistudio.google.com/apikey';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.textContent = 'aistudio.google.com/apikey';
+  guide.appendChild(a);
+  guide.appendChild(document.createTextNode(' 에서 각자 발급받아 입력하세요. 이 키는 이 브라우저에만 저장되며 다른 선생님과 공유되지 않습니다.'));
+
+  var guide2 = node('div', 'info-box');
+  richText(guide2, '키는 파일 안에 들어가지 않습니다. 이 `index.html`을 다른 선생님께 그대로 드려도 키는 함께 넘어가지 않습니다. 공용 컴퓨터에서 쓰셨다면 **‘저장된 키 지우기’**를 눌러 주세요.');
+
+  p.appendChild(cardBox('📝 과세특 초안 · AI 설정', '키와 모델을 먼저 정해 두세요',
+    [head, keyRow, modelRow, actions, guide, guide2], 'no-print'));
+
+  /* ===================== 학생이 선택되지 않은 경우 ===================== */
+  if (state.mode !== 'student' || !state.student) {
+    var pick = node('div');
+    var pmsg = node('p');
+    richText(pmsg, '초안은 **학생 한 명을 고른 상태**에서 만들 수 있습니다. 오른쪽 위에서 ‘개인별’을 누르고 학생을 골라 주세요.');
+    pick.appendChild(pmsg);
+    var names0 = studentNames();
+    if (names0.length) {
+      var go = node('button', 'btn-primary', '개인별로 보기');
+      go.type = 'button';
+      go.addEventListener('click', function () {
+        state.mode = 'student';
+        if (!state.student) { state.student = names0[0]; }
+        renderAll();
+      });
+      pick.appendChild(go);
+    } else {
+      pick.appendChild(node('p', 'desc', '먼저 CSV 파일을 올려 주세요.'));
+    }
+    p.appendChild(cardBox('학생 선택 필요', null, [pick]));
+    return;
+  }
+
+  /* 학생이 바뀌면 선택·메모·결과를 초기화 */
+  if (state.sesta.student !== state.student) {
+    state.sesta.student = state.student;
+    state.sesta.checks = {};
+    state.sesta.memo = '';
+    state.sesta.memoDirty = false;
+    state.sesta.draft = '';
+    state.sesta.draftInfo = '';
+  }
+
+  var list = sestaItems(state.student);
+  if (!list.length) {
+    p.appendChild(cardBox('보낼 데이터가 없습니다', null,
+      emptyBox(['이 학생의 기록이 있는 CSV를 먼저 올려 주세요.'])));
+    return;
+  }
+  list.forEach(function (it) {
+    if (state.sesta.checks[it.key] === undefined) { state.sesta.checks[it.key] = true; }  // 기본값 전부 켜짐
+  });
+
+  /* ===================== 카드 2 : 보낼 데이터 고르기 ===================== */
+  var pickBody = node('div');
+  var pickHint = node('p', 'desc');
+  richText(pickHint, '체크한 항목만 메모와 AI 전송에 쓰입니다. 아래 요약에는 **학생 이름이 들어가지 않으며**, 교사 코멘트에 이름이 있었다면 ‘학생’으로 바꿔 표시합니다.');
+  pickBody.appendChild(pickHint);
+
+  var picks = node('div', 'pick-list');
+  list.forEach(function (it) {
+    var row = node('label', 'pick-item');
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = !!state.sesta.checks[it.key];
+    cb.addEventListener('change', function () {
+      state.sesta.checks[it.key] = cb.checked;
+      row.classList.toggle('off', !cb.checked);
+      refreshMemo();
+    });
+    row.appendChild(cb);
+    var body = node('div', 'pick-body');
+    body.appendChild(node('div', 'pick-title', it.title + ' · ' + it.rows + '행'));
+    body.appendChild(node('div', 'pick-text', it.text));
+    row.appendChild(body);
+    if (!cb.checked) { row.classList.add('off'); }
+    picks.appendChild(row);
+  });
+  pickBody.appendChild(picks);
+
+  var nameCheck = node('p', 'name-check');
+  var anyName = list.some(function (it) { return hasAnyName(it.text); });
+  nameCheck.textContent = anyName
+    ? '⚠ 요약문에 학생 이름이 남아 있는지 확인이 필요합니다.'
+    : '✔ 위 요약문에 학생 이름·학번이 남아 있지 않음을 확인했습니다.';
+  nameCheck.className = 'name-check ' + (anyName ? 'bad' : 'ok');
+  pickBody.appendChild(nameCheck);
+
+  p.appendChild(cardBox('1. 보낼 데이터 고르기', state.student + ' 학생 · ' + list.length + '종', [pickBody], 'no-print'));
+
+  /* ===================== 카드 3 : 메모 ===================== */
+  var memoBody = node('div');
+  memoBody.appendChild(node('p', 'desc', '체크한 항목을 한 줄씩 모은 개조식 메모입니다. 자유롭게 고치거나 내용을 덧붙이셔도 됩니다. AI에게는 이 상자의 내용이 그대로 전달됩니다.'));
+
+  var memoArea = document.createElement('textarea');
+  memoArea.className = 'ta memo';
+  memoArea.rows = 12;
+  memoArea.spellcheck = false;
+  if (!state.sesta.memo) { state.sesta.memo = sestaBuildMemo(list); }
+  memoArea.value = state.sesta.memo;
+  memoBody.appendChild(memoArea);
+
+  var memoFoot = node('div', 'ta-foot');
+  var memoCount = node('span', 'ta-count', '');
+  var memoState = node('span', 'ta-state', '');
+  memoFoot.appendChild(memoCount);
+  memoFoot.appendChild(memoState);
+  memoBody.appendChild(memoFoot);
+
+  var rebuildBtn = node('button', 'btn-ghost', '↻ 선택 항목으로 다시 작성');
+  rebuildBtn.type = 'button';
+  var memoActions = node('div', 'form-actions');
+  memoActions.appendChild(rebuildBtn);
+  memoBody.appendChild(memoActions);
+
+  function updateMemoFoot() {
+    memoCount.textContent = memoArea.value.length + '자';
+    memoState.textContent = state.sesta.memoDirty ? '✎ 직접 수정한 메모 (체크를 바꿔도 덮어쓰지 않습니다)' : '자동 작성된 메모';
+    memoState.className = 'ta-state' + (state.sesta.memoDirty ? ' dirty' : '');
+  }
+  function refreshMemo() {
+    if (state.sesta.memoDirty) { updateMemoFoot(); return; }   // 교사가 고친 메모는 지키기
+    state.sesta.memo = sestaBuildMemo(list);
+    memoArea.value = state.sesta.memo;
+    updateMemoFoot();
+  }
+  memoArea.addEventListener('input', function () {
+    state.sesta.memo = memoArea.value;
+    if (!state.sesta.memoDirty) { state.sesta.memoDirty = true; }
+    updateMemoFoot();
+  });
+  rebuildBtn.addEventListener('click', function () {
+    if (state.sesta.memoDirty) {
+      if (!window.confirm('메모를 직접 수정하셨습니다.\n선택 항목 기준으로 새로 쓰면 수정한 내용이 사라집니다.\n\n계속할까요?')) { return; }
+    }
+    state.sesta.memoDirty = false;
+    refreshMemo();
+  });
+  updateMemoFoot();
+
+  p.appendChild(cardBox('2. 메모 만들기 (AI 없이)', '이 내용이 AI에게 전달됩니다', [memoBody]));
+
+  /* ===================== 카드 4 : 초안 생성 ===================== */
+  var genBody = node('div');
+  var lenRow = node('div', 'form-row');
+  var lenLabel = node('label', null, '초안 길이');
+  lenLabel.setAttribute('for', 'sestaLen');
+  lenRow.appendChild(lenLabel);
+  var lenSel = document.createElement('select');
+  lenSel.id = 'sestaLen';
+  [['300', '300자 내외'], ['500', '500자 내외']].forEach(function (o) {
+    var op = node('option', null, o[1]);
+    op.value = o[0];
+    lenSel.appendChild(op);
+  });
+  lenSel.value = String(state.sesta.length || 300);
+  lenSel.addEventListener('change', function () { state.sesta.length = toNum(lenSel.value) || 300; });
+  lenRow.appendChild(lenSel);
+  genBody.appendChild(lenRow);
+
+  var genActions = node('div', 'form-actions');
+  var genBtn = node('button', 'btn-primary', state.sesta.draft ? '다시 생성' : '초안 생성');
+  genBtn.type = 'button';
+  var genMsg = node('span', 'save-msg', '');
+  genMsg.hidden = true;
+  genActions.appendChild(genBtn);
+  genActions.appendChild(genMsg);
+  genBody.appendChild(genActions);
+
+  var caution = node('div', 'info-box warn');
+  caution.style.marginTop = '14px';
+  richText(caution, '생성되는 글은 **참고용 초안**입니다. AI는 메모에 없는 내용을 그럴듯하게 지어낼 수 있으므로, 반드시 교사가 사실을 확인하고 문장을 고쳐 쓰셔야 합니다.');
+  genBody.appendChild(caution);
+
+  p.appendChild(cardBox('3. AI 초안 생성', '저장된 키와 모델을 사용합니다', [genBody], 'no-print'));
+
+  function showGenMsg(text, color) {
+    genMsg.textContent = text;
+    genMsg.style.color = color || 'var(--critical)';
+    genMsg.hidden = false;
+  }
+
+  genBtn.addEventListener('click', function () {
+    var k = lsGet(SESTA_STORE.key);
+    var model = lsGet(SESTA_STORE.model) || currentModel();
+    var memo = memoArea.value.trim();
+
+    if (!k) { showGenMsg('먼저 위쪽에서 API 키를 입력하고 저장해 주세요.'); keyInput.focus(); return; }
+    if (!model) { showGenMsg('사용할 모델을 고르고 저장해 주세요.'); return; }
+    if (!memo) { showGenMsg('메모 칸이 비어 있습니다. 항목을 체크하거나 내용을 직접 적어 주세요.'); memoArea.focus(); return; }
+
+    genMsg.hidden = true;
+    genBtn.disabled = true;
+    genBtn.textContent = '⏳ 생성 중…';
+    state.sesta.error = '';
+
+    geminiGenerate(k, model, sestaPrompt(memo, state.sesta.length || 300)).then(function (data) {
+      var r = readGeminiResult(data);
+
+      if (r.blocked) {
+        state.sesta.error = 'AI가 안전 설정 때문에 요청 자체를 거부했습니다 (사유: ' + r.blocked + '). ' +
+          '메모에 민감하게 읽힐 수 있는 표현이 있는지 확인하고 문장을 다듬어 다시 시도해 주세요.';
+        state.sesta.draft = '';
+      } else if (r.finish === 'SAFETY') {
+        state.sesta.error = 'AI가 안전 설정 때문에 답변을 중단했습니다. 메모의 표현을 부드럽게 바꾸어 다시 시도해 주세요.';
+        state.sesta.draft = r.text || '';
+      } else if (r.finish === 'RECITATION') {
+        state.sesta.error = 'AI가 기존 문헌을 그대로 옮길 위험이 있다고 판단해 답변을 중단했습니다. 메모 내용을 조금 바꿔 다시 시도해 주세요.';
+        state.sesta.draft = r.text || '';
+      } else if (r.finish === 'MAX_TOKENS' && !r.text) {
+        state.sesta.error = '길이 제한에 먼저 걸려 결과가 비어 돌아왔습니다. 최신 모델은 답을 쓰기 전 내부 ‘생각’에도 길이를 쓰기 때문입니다. ' +
+          '메모를 줄이거나 더 가벼운 모델을 골라 다시 시도해 주세요.' +
+          (r.thoughts ? ' (내부 생각에 쓴 양: ' + r.thoughts + ')' : '');
+        state.sesta.draft = '';
+      } else if (r.finish === 'MAX_TOKENS') {
+        state.sesta.error = '길이 제한에 걸려 초안이 중간에 잘렸습니다. 아래 결과는 잘린 상태이니, 짧은 길이를 고르거나 메모를 줄여 다시 시도해 주세요.';
+        state.sesta.draft = r.text;
+      } else if (!r.text) {
+        state.sesta.error = '모델이 빈 응답을 보냈습니다' + (r.finish ? ' (종료 사유: ' + r.finish + ')' : '') + '. ' +
+          (r.thoughts ? '내부 ‘생각’에만 ' + r.thoughts + ' 만큼 쓰고 본문을 만들지 못했습니다. ' : '') +
+          '다시 시도하거나 다른 모델을 골라 보세요.';
+        state.sesta.draft = '';
+      } else {
+        state.sesta.error = '';
+        state.sesta.draft = r.text;
+        state.sesta.draftInfo = model + ' · ' + (state.sesta.length || 300) + '자 내외 요청';
+      }
+      renderSesta();
+      var box = panels.sesta.querySelector('.draft-card');
+      if (box) { box.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    }).catch(function (err) {
+      state.sesta.error = sestaErrorText(err);
+      renderSesta();
+    });
+  });
+
+  /* ===================== 카드 5 : 결과 ===================== */
+  if (state.sesta.error || state.sesta.draft) {
+    var resBody = node('div');
+
+    var warn = node('div', 'info-box warn');
+    richText(warn, '⚠ 이 초안은 **참고 자료**입니다. 학교생활기록부는 교사가 직접 검토·수정해 작성해야 하며, **AI가 만든 문구를 그대로 사용하면 안 됩니다.** ' +
+      '사실과 다른 내용이 없는지, 학교 기재 요령에 맞는지 반드시 확인해 주세요.');
+    resBody.appendChild(warn);
+
+    if (state.sesta.error) {
+      var errBox = node('div', 'info-box err');
+      errBox.textContent = '생성 실패 — ' + state.sesta.error;
+      resBody.appendChild(errBox);
+    }
+
+    if (state.sesta.draft) {
+      var draftArea = document.createElement('textarea');
+      draftArea.className = 'ta draft';
+      draftArea.rows = 10;
+      draftArea.spellcheck = false;
+      draftArea.value = state.sesta.draft;
+      resBody.appendChild(draftArea);
+
+      var dFoot = node('div', 'ta-foot');
+      var dCount = node('span', 'ta-count', state.sesta.draft.length + '자');
+      var dInfo = node('span', 'ta-state', state.sesta.draftInfo || '');
+      dFoot.appendChild(dCount);
+      dFoot.appendChild(dInfo);
+      resBody.appendChild(dFoot);
+
+      draftArea.addEventListener('input', function () {
+        state.sesta.draft = draftArea.value;
+        dCount.textContent = draftArea.value.length + '자';
+      });
+
+      var copyBtn = node('button', 'btn-primary', '초안 복사');
+      copyBtn.type = 'button';
+      copyBtn.addEventListener('click', function () {
+        var text = draftArea.value;
+        var done = function () {
+          var old = copyBtn.textContent;
+          copyBtn.textContent = '✔ 복사됨';
+          setTimeout(function () { copyBtn.textContent = old; }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+        } else {
+          fallbackCopy(text, done);
+        }
+      });
+      var cActions = node('div', 'form-actions');
+      cActions.appendChild(copyBtn);
+      resBody.appendChild(cActions);
+
+      /* 인쇄할 때는 입력상자 대신 글자만 나오게 */
+      var printCopy = node('div', 'draft-print');
+      printCopy.textContent = state.sesta.draft;
+      resBody.appendChild(printCopy);
+    }
+
+    var card = cardBox('4. AI 초안 (참고용)', state.student + ' 학생', [resBody], 'draft-card');
+    p.appendChild(card);
+  }
+}
+
+/* 클립보드 기능이 막힌 환경(파일로 직접 열었을 때 등)을 위한 대비 */
+function fallbackCopy(text, done) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); done(); }
+  catch (e) { window.alert('복사가 막혀 있습니다. 상자의 글을 직접 선택해 복사해 주세요.'); }
+  document.body.removeChild(ta);
+}
+
+/* ============================================================================
    16. 탭 목록 만들기 (사이드바 메뉴 · 화면 · 이름표)
    ============================================================================ */
 var TABS = [{ key: 'overall', name: '종합 진단', icon: '🧭', group: '진단' },
-            { key: 'achieve', name: '성취도평가', icon: '📊', group: '평가' },
-            { key: 'formative', name: '형성평가', icon: '✏️', group: '평가' }]
+            { key: 'sesta',   name: '과세특 초안', icon: '📝', group: '생활기록부' },
+            { key: 'achieve', name: '성취도평가', icon: '📊', group: '평가', data: true },
+            { key: 'formative', name: '형성평가', icon: '✏️', group: '평가', data: true }]
   .concat(EXTRA_SPECS.map(function (s) {
-    return { key: s.key, name: s.name, icon: s.icon, group: s.group };
+    return { key: s.key, name: s.name, icon: s.icon, group: s.group, data: true };
   }));
 
-var DATA_KINDS = TABS.filter(function (t) { return t.key !== 'overall'; })
+/* 실제 CSV 데이터가 들어가는 탭만 (종합 진단·과세특 초안은 제외) */
+var DATA_KINDS = TABS.filter(function (t) { return t.data; })
                      .map(function (t) { return t.key; });
 var SPEC_BY_KEY = {};
 EXTRA_SPECS.forEach(function (s) { SPEC_BY_KEY[s.key] = s; });
@@ -3627,8 +4577,8 @@ function setupTabs() {
 
   TABS.forEach(function (t) {
     TAB_TITLE[t.key] = t.name;
-    if (t.key !== 'overall') { KIND_NAME[t.key] = t.name; }
-    if (!state.data[t.key] && t.key !== 'overall') { state.data[t.key] = []; }
+    if (t.data) { KIND_NAME[t.key] = t.name; }
+    if (t.data && !state.data[t.key]) { state.data[t.key] = []; }
 
     var sec = node('section', 'panel');
     sec.id = 'panel-' + t.key;
