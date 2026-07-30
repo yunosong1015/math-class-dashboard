@@ -1,0 +1,12 @@
+# 실제 학생 데이터는 절대 올리지 않습니다 (samples/ 안의 가상 예시만 허용)
+*.csv
+!samples/*.csv
+*.xlsx
+*.xls
+
+# 작업 중 생기는 파일
+*.png
+!docs/*.png
+.DS_Store
+Thumbs.db
+node_modules/
